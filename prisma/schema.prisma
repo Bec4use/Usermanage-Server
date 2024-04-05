@@ -1,0 +1,76 @@
+// prisma/schema.prisma
+datasource db {
+  provider  = "mysql"
+  url       = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+model Users {
+  id                    String                 @id @default(cuid())
+  firstName             String
+  lastName              String
+  gender                String
+  birthday              DateTime
+  departmentId          String?
+  address               String?
+  email                 String?                @unique
+  emailVerified         DateTime?
+  image                 String?                @db.LongText
+  password              String?
+  role                  UserRole               @default(USER)
+  isTwoFactorEnabled    Boolean                @default(false)
+
+  department Department? @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+
+}
+
+
+
+model Department {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  users       Users[]
+}
+
+model Admin {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String
+  
+}
+
+model Store {
+  store_key Int     @id 
+  city      String
+  region    String
+  sales     SalesFact[]
+}
+
+model Product {
+  product_key Int     @id
+  description String
+  brand       String
+  sales       SalesFact[]
+}
+
+model SalesFact {
+  id          Int  @id @default(autoincrement())
+  store_key   Int
+  product_key Int
+  sales       Float
+  cost        Float
+  profit      Float
+
+  store Store   @relation(fields: [store_key], references: [store_key], onDelete: Cascade)
+  product Product @relation(fields: [product_key], references: [product_key], onDelete: Cascade)
+}
