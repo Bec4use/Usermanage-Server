@@ -6,7 +6,7 @@ import { PrismaClient } from "@prisma/client";
 const router = express.Router();
 const prisma = new PrismaClient();
 
-router.post("/add_department", authenticate, async (req, res) => {
+router.post("/department", authenticate, async (req, res) => {
   const { department } = req.body;
 
   try {

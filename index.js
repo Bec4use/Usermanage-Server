@@ -16,6 +16,8 @@ import { departmentCount } from "./Routes/Dashboard/departmentCount.js";
 import { userSearch } from "./Routes/userSearch.js";
 import { registerRouter } from "./Routes/Register.js";
 import { logoutRouter } from "./Routes/Logout.js";
+import { getProfileById } from "./Routes/getProfilebyId.js";
+import { UpdateProfile } from "./Routes/Profile/UpdateProfile.js";
 
 const app = express();
 app.use(
@@ -41,6 +43,8 @@ app.use("/api", authenticate, adminCount);
 app.use("/api", authenticate, userCount);
 app.use("/api", authenticate, departmentCount);
 app.use("/api", authenticate, userSearch);
+app.use("/api", authenticate, getProfileById);
+app.use("/api", authenticate, UpdateProfile);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

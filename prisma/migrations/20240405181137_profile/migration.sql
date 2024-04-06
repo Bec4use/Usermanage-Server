@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE `admin` ADD COLUMN `address` VARCHAR(191) NULL,
+    ADD COLUMN `birthday` DATETIME(3) NULL,
+    ADD COLUMN `firstName` VARCHAR(191) NULL,
+    ADD COLUMN `gender` VARCHAR(191) NULL,
+    ADD COLUMN `image` LONGTEXT NULL,
+    ADD COLUMN `lastName` VARCHAR(191) NULL,
+    ADD COLUMN `phone` VARCHAR(191) NULL;
